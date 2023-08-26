@@ -1,0 +1,177 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  imageUrl  String
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tags {
+  id              String           @id @default(uuid())
+  name            String
+  tagsConnections TagsConnection[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+}
+
+model TagsConnection {
+  id        String   @id @default(uuid())
+  tagsId    String
+  tags      Tags     @relation(fields: [tagsId], references: [id])
+  productId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id            String        @id @default(uuid())
+  name          String
+  imageUrl      String
+  subCategories SubCategory[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model SubCategory {
+  id         String   @id @default(uuid())
+  name       String
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Color {
+  id               String            @id @default(uuid())
+  name             String
+  colorCode        String
+  colorConnections ColorConnection[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+model ColorConnection {
+  id        String   @id @default(uuid())
+  colorId   String
+  productId String
+  color     Color    @relation(fields: [colorId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Size {
+  id             String           @id @default(uuid())
+  sizeNumber     String
+  sizeConnection SizeConnection[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+}
+
+model SizeConnection {
+  id        String   @id @default(uuid())
+  sizeId    String
+  productId String
+  size      Size     @relation(fields: [sizeId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Weight {
+  id               String             @id @default(uuid())
+  name             String
+  WeightConnection WeightConnection[]
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+}
+
+model WeightConnection {
+  id        String   @id @default(uuid())
+  weightId  String
+  value     String
+  productId String
+  weight    Weight   @relation(fields: [weightId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FreeDelivery {
+  id           String    @id @default(uuid())
+  location     String
+  charge       String    @default("FREE")
+  deliveryTime String
+  product      Product[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model PaidDelivery {
+  id           String    @id @default(uuid())
+  location     String
+  charge       String
+  deliveryTime String
+  product      Product[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Product {
+  id               String             @id @default(uuid())
+  title            String
+  description      String
+  brand            String
+  sellerId         String
+  categoryId       String
+  quantity         String
+  inStoke          String
+  freeDeliveryId   String
+  paidDeliveryId   String
+  display          String
+  mainPrice        Int
+  discountPrice    Int
+  Image            Image[]
+  reviews          Review[]
+  SizeConnection   SizeConnection[]
+  ColorConnection  ColorConnection[]
+  freeDelivery     FreeDelivery       @relation(fields: [freeDeliveryId], references: [id])
+  paidDelivery     PaidDelivery       @relation(fields: [paidDeliveryId], references: [id])
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  WeightConnection WeightConnection[]
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  sellerId  String
+  buyerId   String
+  Review    Review[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Review {
+  id         String   @id @default(uuid())
+  reviewId   String
+  productId  String
+  reviewData String
+  rating     Int
+  review     Comment  @relation(fields: [reviewId], references: [id])
+  procuct    Product  @relation(fields: [productId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
