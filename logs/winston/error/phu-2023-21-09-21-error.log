@@ -1,0 +1,18 @@
+Thu Sep 21 2023, 21:13:7 [FERI] error => 
+Invalid `prisma.user.create()` invocation:
+
+{
+  data: {
+    syncId: "650c5d8289d837143f368699",
+    firstName: "md",
+    middleName: "kasem",
+    lastName: "ali",
+    email: "kasemali@gmail.com",
+    password: "$2b$12$S8glb2f.U8oRA1btUDTrSeFZ7UawZSzEJd.3HTXrOeMihx0ZtFB1a",
+    role: "seller",
+          ~~~~~~~~
+    token: ""
+  }
+}
+
+Invalid value for argument `role`. Expected RoleStatus.

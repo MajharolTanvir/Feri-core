@@ -11,20 +11,25 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(uuid())
-  firstName String
-  lastName  String
-  email     String
-  role      RoleStatus
-  password  String
-  Profile   Profile[]
-  Shop      Shop[]
+  id         String     @id @default(uuid())
+  syncId     String
+  firstName  String
+  middleName String?
+  lastName   String
+  email      String
+  role       RoleStatus
+  password   String
+  token      String?
+  Profile    Profile[]
+  Shop       Shop[]
 }
 
 model Profile {
-  userId    String
-  contactNo String
-  user      User   @relation(fields: [userId], references: [id])
+  userId         String
+  contactNo      String
+  presentAddress String
+  profileImage   String
+  user           User   @relation(fields: [userId], references: [id])
 
   @@id([userId])
 }

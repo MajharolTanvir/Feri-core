@@ -1,25 +1,25 @@
 {
-    "keep": {
-        "days": true,
-        "amount": 10
+  "keep": {
+    "days": true,
+    "amount": 10
+  },
+  "auditLog": "/home/webshilpo/Working-files/complete-project/feri/feri-server-core/logs/winston/error/.3b2aca71c80a11e413134175a58bdbf93a8b4ab1-audit.json",
+  "files": [
+    {
+      "date": 1695287546936,
+      "name": "/home/webshilpo/Working-files/complete-project/feri/feri-server-core/logs/winston/error/phu-2023-21-09-15-error.log",
+      "hash": "7738590d295455cc794b04812814e3178b913f141296384247fa809edc11d24f"
     },
-    "auditLog": "/home/webshilpo/Working-files/complete-project/feri/feri-server-core/logs/winston/error/.3b2aca71c80a11e413134175a58bdbf93a8b4ab1-audit.json",
-    "files": [
-        {
-            "date": 1695287546936,
-            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-server-core/logs/winston/error/phu-2023-21-09-15-error.log",
-            "hash": "7738590d295455cc794b04812814e3178b913f141296384247fa809edc11d24f"
-        },
-        {
-            "date": 1695294529373,
-            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-server-core/logs/winston/error/phu-2023-21-09-17-error.log",
-            "hash": "80d991c482e911da97b0b3bafa7b8f89f3e8c4dcf6493a7b8fd0081c133875ec"
-        },
-        {
-            "date": 1695300517236,
-            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-server-core/logs/winston/error/phu-2023-21-09-18-error.log",
-            "hash": "847ba6883671a6e6a1f22aaf238438d1d59b968337172c76856720d633b31bb0"
-        }
-    ],
-    "hashType": "sha256"
+    {
+      "date": 1695294529373,
+      "name": "/home/webshilpo/Working-files/complete-project/feri/feri-server-core/logs/winston/error/phu-2023-21-09-17-error.log",
+      "hash": "80d991c482e911da97b0b3bafa7b8f89f3e8c4dcf6493a7b8fd0081c133875ec"
+    },
+    {
+      "date": 1695300517236,
+      "name": "/home/webshilpo/Working-files/complete-project/feri/feri-server-core/logs/winston/error/phu-2023-21-09-18-error.log",
+      "hash": "847ba6883671a6e6a1f22aaf238438d1d59b968337172c76856720d633b31bb0"
+    }
+  ],
+  "hashType": "sha256"
 }

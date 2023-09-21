@@ -1,40 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { User } from '@prisma/client'
-import bcrypt from 'bcrypt'
-import config from '../../../config'
-import { Secret } from 'jsonwebtoken'
-import { jwtHelpers } from '../../../shared/jwtHelper'
+
 import prisma from '../../../shared/prisma'
 
-const signup = async (payload: User) => {
-  if (payload?.password) {
-    const hashedPassword = await bcrypt.hash(
-      payload.password,
-      Number(config.bcrypt_salt_rounds),
-    )
-    payload.password = hashedPassword
-  }
-
-  const result = await prisma.user.create({
-    data: payload,
-  })
-
-  const { id: userId, email: userEmail, role: userRole } = result
-
-  const accessToken = jwtHelpers.createToken(
-    {
-      userId,
-      userEmail,
-      userRole,
+const createUserEvent = async (e: any) => {
+  await prisma.user.create({
+    data: {
+      syncId: e._id,
+      firstName: e.firstName,
+      middleName: e.middleName,
+      lastName: e.lastName,
+      email: e.email,
+      password: e.password,
+      role: e.role,
+      token: e.token,
     },
-    config.jwt.secret as Secret,
-    config.jwt.expires_in as string,
-  )
-
-  return {
-    result,
-    accessToken,
-  }
+  })
 }
 
 const updateProfile = async (userId: string, profileData: any) => {
@@ -61,7 +41,7 @@ const updateProfile = async (userId: string, profileData: any) => {
   }
 }
 
-export const AuthService = {
-  signup,
+export const UserService = {
+  createUserEvent,
   updateProfile,
 }

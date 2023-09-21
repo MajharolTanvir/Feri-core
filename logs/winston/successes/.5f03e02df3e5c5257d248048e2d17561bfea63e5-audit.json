@@ -9,6 +9,16 @@
             "date": 1695302443273,
             "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-21-09-19-success.log",
             "hash": "7d5eafd2a446f4d8e3274a214aa8648e7a486f1344baf212b008ebe0da88fcbd"
+        },
+        {
+            "date": 1695308393491,
+            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-21-09-20-success.log",
+            "hash": "85897f0a42c638669d25b180faa6d9b51883b343a151630e670564528ccb9e9b"
+        },
+        {
+            "date": 1695308481755,
+            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-21-09-21-success.log",
+            "hash": "ab83106cde678696c4d03b2504222a58731c791109e4b64236bdc7739b2e0711"
         }
     ],
     "hashType": "sha256"
