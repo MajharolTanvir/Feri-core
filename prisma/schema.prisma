@@ -10,6 +10,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        String     @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String
+  role      RoleStatus
+  password  String
+  Profile   Profile[]
+  Shop      Shop[]
+}
+
+model Profile {
+  userId    String
+  contactNo String
+  user      User   @relation(fields: [userId], references: [id])
+
+  @@id([userId])
+}
+
+model Shop {
+  userId         String
+  shopName       String
+  shopContactNo  String
+  country        String
+  division       String
+  district       String
+  area           String
+  nidNumber      String  @unique
+  treadLicenceNo String? @unique
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@id([userId])
+}
+
 model Image {
   id        String   @id @default(uuid())
   imageUrl  String
@@ -32,6 +67,7 @@ model TagsConnection {
   tagsId    String
   tags      Tags     @relation(fields: [tagsId], references: [id])
   productId String
+  product   Product  @relation(fields: [productId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -46,12 +82,13 @@ model Category {
 }
 
 model SubCategory {
-  id         String   @id @default(uuid())
+  id         String    @id @default(uuid())
   name       String
   categoryId String
-  category   Category @relation(fields: [categoryId], references: [id])
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  category   Category  @relation(fields: [categoryId], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Product    Product[]
 }
 
 model Color {
@@ -111,23 +148,24 @@ model WeightConnection {
 }
 
 model FreeDelivery {
-  id           String    @id @default(uuid())
+  id           String   @id @default(uuid())
   location     String
-  charge       String    @default("FREE")
+  charge       String   @default("FREE")
   deliveryTime String
-  product      Product[]
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  productId    String
+  product      Product  @relation(fields: [productId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model PaidDelivery {
-  id           String    @id @default(uuid())
-  location     String
+  id           String   @id @default(uuid())
   charge       String
   deliveryTime String
-  product      Product[]
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  productId    String
+  product      Product  @relation(fields: [productId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Product {
@@ -137,22 +175,23 @@ model Product {
   brand            String
   sellerId         String
   categoryId       String
+  subCategoryId    String
   quantity         String
   inStoke          String
-  freeDeliveryId   String
-  paidDeliveryId   String
-  display          String
+  display          ProductStatus      @default(HIDDEN)
   mainPrice        Int
   discountPrice    Int
   Image            Image[]
   reviews          Review[]
   SizeConnection   SizeConnection[]
   ColorConnection  ColorConnection[]
-  freeDelivery     FreeDelivery       @relation(fields: [freeDeliveryId], references: [id])
-  paidDelivery     PaidDelivery       @relation(fields: [paidDeliveryId], references: [id])
+  subCategory      SubCategory        @relation(fields: [subCategoryId], references: [id])
+  WeightConnection WeightConnection[]
+  TagsConnection   TagsConnection[]
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
-  WeightConnection WeightConnection[]
+  FreeDelivery     FreeDelivery[]
+  PaidDelivery     PaidDelivery[]
 }
 
 model Comment {
@@ -174,4 +213,16 @@ model Review {
   procuct    Product  @relation(fields: [productId], references: [id])
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+}
+
+enum ProductStatus {
+  SHOW
+  HIDDEN
+}
+
+enum RoleStatus {
+  BUYER
+  SELLER
+  MODERATOR
+  ADMIN
 }

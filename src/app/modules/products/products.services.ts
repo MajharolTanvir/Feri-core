@@ -1,11 +1,22 @@
-import { ProductsType } from './products.interface'
-import { Products } from './products.model'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-const createProduct = async (productData: ProductsType) => {
-  const product = await Products.create(productData)
-  return product
+import prisma from '../../../shared/prisma'
+
+const createProduct = async (userEmail: string, payload: any) => {
+  const isUserExist = await prisma.user.findFirst({
+    where: {
+      email: userEmail,
+    },
+  })
+
+  console.log(isUserExist, payload)
+
+  // const product = await prisma.product.create({
+  //   data: productData
+  // })
+  // return product
 }
 
-export const SubCategoryService = {
+export const ProductService = {
   createProduct,
 }

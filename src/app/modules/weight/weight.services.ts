@@ -1,5 +1,5 @@
-import { Weight } from "@prisma/client"
-import prisma from "../../../shared/prisma"
+import { Weight } from '@prisma/client'
+import prisma from '../../../shared/prisma'
 
 //* Weight services
 const addWeight = async (weightData: Weight) => {
@@ -13,9 +13,7 @@ const getWeights = async () => {
 }
 
 const editWeight = async (weightData: Partial<Weight>, id: string) => {
-  const weight = await prisma.weight.update(
-    { where: { id }, data: weightData },
-  )
+  const weight = await prisma.weight.update({ where: { id }, data: weightData })
   return weight
 }
 

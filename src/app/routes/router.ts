@@ -5,6 +5,7 @@ import { ColorRouter } from '../modules/color/color.router'
 import { SizesRouter } from '../modules/size/size.router'
 import { WeightRouter } from '../modules/weight/weight.router'
 import { TagsRouter } from '../modules/tags/tags.router'
+import { ProductRouter } from '../modules/products/products.router'
 
 const router = express.Router()
 
@@ -32,6 +33,10 @@ const moduleRoutes = [
   {
     path: '/tags',
     route: TagsRouter,
+  },
+  {
+    path: '/products',
+    route: ProductRouter,
   },
 ]
 

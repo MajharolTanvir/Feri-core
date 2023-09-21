@@ -3,7 +3,7 @@ import prisma from '../../../shared/prisma'
 
 const addCategory = async (categoryData: Category) => {
   const category = await prisma.category.create({
-    data: categoryData
+    data: categoryData,
   })
   return category
 }
@@ -16,11 +16,10 @@ const getAllCategory = async () => {
 const editCategory = async (categoryData: Partial<Category>, id: string) => {
   const category = await prisma.category.update({
     where: {
-      id
+      id,
     },
-    data: categoryData
-  }
-  )
+    data: categoryData,
+  })
   return category
 }
 

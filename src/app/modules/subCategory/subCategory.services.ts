@@ -1,9 +1,8 @@
-import { SubCategory } from "@prisma/client"
-import prisma from "../../../shared/prisma"
-
+import { SubCategory } from '@prisma/client'
+import prisma from '../../../shared/prisma'
 
 const addSubCategory = async (categoryData: SubCategory) => {
-  const subCategory = (await prisma.subCategory.create({ data: categoryData }))
+  const subCategory = await prisma.subCategory.create({ data: categoryData })
   return subCategory
 }
 
@@ -12,15 +11,17 @@ const getAllSubCategory = async () => {
   return categories
 }
 
-const editSubCategory = async (categoryData: Partial<SubCategory>, id: string) => {
+const editSubCategory = async (
+  categoryData: Partial<SubCategory>,
+  id: string,
+) => {
   const subCategory = await prisma.subCategory.update({
     where: { id },
     data: categoryData,
     include: {
-      category: true
-    }
-  },
-  )
+      category: true,
+    },
+  })
   return subCategory
 }
 
