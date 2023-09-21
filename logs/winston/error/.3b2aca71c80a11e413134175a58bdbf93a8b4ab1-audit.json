@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 10
+    },
+    "auditLog": "/home/webshilpo/Working-files/complete-project/feri/feri-server-core/logs/winston/error/.3b2aca71c80a11e413134175a58bdbf93a8b4ab1-audit.json",
+    "files": [
+        {
+            "date": 1695287546936,
+            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-server-core/logs/winston/error/phu-2023-21-09-15-error.log",
+            "hash": "7738590d295455cc794b04812814e3178b913f141296384247fa809edc11d24f"
+        }
+    ],
+    "hashType": "sha256"
+}

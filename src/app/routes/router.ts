@@ -4,6 +4,7 @@ import { SubCategoryRoutes } from '../modules/subCategory/subCategory.router'
 import { ColorRouter } from '../modules/color/color.router'
 import { SizesRouter } from '../modules/size/size.router'
 import { WeightRouter } from '../modules/weight/weight.router'
+import { TagsRouter } from '../modules/tags/tags.router'
 
 const router = express.Router()
 
@@ -27,6 +28,10 @@ const moduleRoutes = [
   {
     path: '/weights',
     route: WeightRouter,
+  },
+  {
+    path: '/tags',
+    route: TagsRouter,
   },
 ]
 
