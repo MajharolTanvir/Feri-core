@@ -19,6 +19,11 @@
             "date": 1695308481761,
             "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/error/phu-2023-21-09-21-error.log",
             "hash": "509ec0090375742123d2c20b2625c4ce39b081cde8e065f7921d89af71577f04"
+        },
+        {
+            "date": 1695319753965,
+            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/error/phu-2023-22-09-00-error.log",
+            "hash": "29899a5ff6571d5d1d7cc9c29876c136247fad0fb3722772dda6c988cee5be47"
         }
     ],
     "hashType": "sha256"

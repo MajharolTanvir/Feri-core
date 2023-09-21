@@ -26,9 +26,9 @@ model User {
 
 model Profile {
   userId         String
-  contactNo      String
-  presentAddress String
-  profileImage   String
+  contactNo      String?
+  presentAddress String?
+  profileImage   String?
   user           User   @relation(fields: [userId], references: [id])
 
   @@id([userId])
@@ -36,14 +36,14 @@ model Profile {
 
 model Shop {
   userId         String
-  shopName       String
-  shopContactNo  String
-  country        String
-  division       String
-  district       String
-  area           String
-  nidNumber      String  @unique
-  treadLicenceNo String? @unique
+  shopName       String?
+  shopContactNo  String?
+  country        String?
+  division       String?
+  district       String?
+  area           String?
+  nidNumber      String?  @unique
+  treadLicenseNo String? @unique
 
   user User @relation(fields: [userId], references: [id])
 

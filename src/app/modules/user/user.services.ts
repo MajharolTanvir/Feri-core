@@ -17,27 +17,76 @@ const createUserEvent = async (e: any) => {
   })
 }
 
-const updateProfile = async (userId: string, profileData: any) => {
-  const isProfileExist = await prisma.profile.findFirst({
+const updateProfile = async (e: Partial<any>) => {
+  const isUserExist = await prisma.user.findFirst({
     where: {
-      userId: profileData.userId,
+      syncId: e._id,
+    },
+  })
+  const isProfileExistOnProfile = await prisma.profile.findFirst({
+    where: {
+      userId: isUserExist!.id,
     },
   })
 
-  if (!isProfileExist) {
-    const profile = await prisma.profile.create({
-      data: profileData,
-    })
-    return profile
-  } else {
-    const profile = await prisma.profile.update({
-      where: {
-        userId: isProfileExist.userId,
-      },
-      data: profileData,
-    })
+  const isProfileExistOnShop = await prisma.shop.findFirst({
+    where: {
+      userId: isUserExist!.id,
+    },
+  })
 
-    return profile
+  if (!isProfileExistOnProfile) {
+    await prisma.profile.create({
+      data: {
+        userId: isUserExist!.id,
+        contactNo: e.contactNo,
+        presentAddress: e.presentAddress,
+        profileImage: e.profileImage,
+      },
+    })
+  } else {
+    await prisma.profile.update({
+      where: {
+        userId: isUserExist!.id,
+      },
+      data: {
+        contactNo: e.contactNo,
+        presentAddress: e.presentAddress,
+        profileImage: e.profileImage,
+      },
+    })
+  }
+
+  if (!isProfileExistOnShop) {
+    await prisma.shop.create({
+      data: {
+        userId: isUserExist!.id,
+        shopName: e.shopName,
+        shopContactNo: e.shopContactNo,
+        country: e.country,
+        division: e.division,
+        district: e.district,
+        area: e.area,
+        nidNumber: e.nidNumber,
+        treadLicenseNo: e.treadLicenseNo,
+      },
+    })
+  } else {
+    await prisma.shop.update({
+      where: {
+        userId: isProfileExistOnShop!.userId,
+      },
+      data: {
+        shopName: e.shopName,
+        shopContactNo: e.shopContactNo,
+        country: e.country,
+        division: e.division,
+        district: e.district,
+        area: e.area,
+        nidNumber: e.nidNumber,
+        treadLicenseNo: e.treadLicenseNo,
+      },
+    })
   }
 }
 

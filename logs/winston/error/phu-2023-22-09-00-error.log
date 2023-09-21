@@ -1,0 +1,100 @@
+Fri Sep 22 2023, 0:23:16 [FERI] error => 
+Invalid `prisma.profile.update()` invocation:
+
+
+An operation failed because it depends on one or more records that were required but not found. Record to update not found.
+Fri Sep 22 2023, 0:25:33 [FERI] error => Cannot read properties of null (reading 'id')
+Fri Sep 22 2023, 0:25:53 [FERI] error => Cannot read properties of null (reading 'id')
+Fri Sep 22 2023, 0:27:10 [FERI] error => 
+Invalid `prisma.shop.create()` invocation:
+
+{
+  data: {
+    userId: "5727233a-8425-439a-b38b-11d24fc0ea90",
+    shopName: "adsfj",
+    shopContactNo: "dasfosd",
+    country: "adslkfdfads",
+    division: "dsfoasdjo",
+    district: "sfasdjl",
+    nidNumber: undefined,
+    treadLicenseNo: undefined,
++   area: String
+  }
+}
+
+Argument `area` is missing.
+Fri Sep 22 2023, 0:28:5 [FERI] error => 
+Invalid `prisma.shop.update()` invocation:
+
+
+An operation failed because it depends on one or more records that were required but not found. Record to update not found.
+Fri Sep 22 2023, 0:28:42 [FERI] error => 
+Invalid `prisma.shop.update()` invocation:
+
+
+An operation failed because it depends on one or more records that were required but not found. Record to update not found.
+Fri Sep 22 2023, 0:31:5 [FERI] error => 
+Invalid `prisma.shop.create()` invocation:
+
+{
+  data: {
+    userId: "5727233a-8425-439a-b38b-11d24fc0ea90",
+    shopName: "adsfj",
+    shopContactNo: "dasfosd",
+    country: "adslkfdfads",
+    division: "dsfoasdjo",
+    district: "sfasdjl",
+    nidNumber: undefined,
+    treadLicenseNo: undefined,
++   area: String
+  }
+}
+
+Argument `area` is missing.
+Fri Sep 22 2023, 0:32:16 [FERI] error => 
+Invalid `prisma.shop.create()` invocation:
+
+{
+  data: {
+    _id: "650c5f0ac24b903cdf1db85f",
+    firstName: "md",
+    middleName: "kasem",
+    lastName: "ali",
+    email: "kasemali@gmail.com",
+    role: "SELLER",
+    token: "",
+    createdAt: "2023-09-21T15:19:38.359Z",
+    updatedAt: "2023-09-21T18:32:15.885Z",
+    __v: 0,
+    contactNo: "dalskjfsdjo",
+    country: "adslkfdfads",
+    district: "sfasdjl",
+    division: "dsfoasdjo",
+    presentAddress: "aoidfsjko",
+    profileImage: "dsafjako",
+    shopContactNo: "dasfosd",
+    shopName: "adsfj",
+    id: "650c5f0ac24b903cdf1db85f",
++   area: String
+  }
+}
+
+Argument `area` is missing.
+Fri Sep 22 2023, 0:33:26 [FERI] error => 
+Invalid `prisma.shop.create()` invocation:
+
+{
+  data: {
+    userId: "5727233a-8425-439a-b38b-11d24fc0ea90",
+    shopName: "adsfj",
+    shopContactNo: "dasfosd",
+    country: "adslkfdfads",
+    division: "dsfoasdjo",
+    district: "sfasdjl",
+    nidNumber: undefined,
+    treadLicenseNo: undefined,
++   area: String
+  }
+}
+
+Argument `area` is missing.
