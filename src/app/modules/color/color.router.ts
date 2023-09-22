@@ -8,17 +8,17 @@ const router = express.Router()
 //* Color routes
 
 router.patch(
-  '/edit-color/:id',
+  '/:id',
   validateRequest(ColorValidation.updateColorZodSchema),
   ColorController.editColor,
 )
 
-router.get('/get-color', ColorController.getColors)
+router.get('/', ColorController.getColors)
 
-router.delete('/delete-color/:id', ColorController.deleteColor)
+router.delete('/:id', ColorController.deleteColor)
 
 router.post(
-  '/add-color',
+  '/',
   validateRequest(ColorValidation.createColorZodSchema),
   ColorController.addColor,
 )

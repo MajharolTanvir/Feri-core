@@ -4,19 +4,18 @@ import { CommonValidation } from './weight.validation'
 import { WeightController } from './weight.controller'
 const router = express.Router()
 
-//* weight routes
 router.patch(
-  '/edit-weight/:id',
+  '/:id',
   validateRequest(CommonValidation.updateWeightZodSchema),
   WeightController.editWeight,
 )
 
-router.get('/get-weight', WeightController.getWeights)
+router.get('/', WeightController.getWeights)
 
-router.delete('/delete-weight/:id', WeightController.deleteWeight)
+router.delete('/:id', WeightController.deleteWeight)
 
 router.post(
-  '/add-weight',
+  '/',
   validateRequest(CommonValidation.createWeightZodSchema),
   WeightController.addWeight,
 )

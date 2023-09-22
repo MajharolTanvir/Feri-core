@@ -15,12 +15,12 @@ router.post(
 )
 router.patch(
   '/:id',
-  auth(ENUM_USER_ROLE.Admin, ENUM_USER_ROLE.MODERATOR),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.MODERATOR),
   TagsController.updateTags,
 )
 router.delete(
   '/:id',
-  auth(ENUM_USER_ROLE.Admin, ENUM_USER_ROLE.MODERATOR),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.MODERATOR),
   TagsController.deleteTags,
 )
 

@@ -1,30 +1,30 @@
 {
-    "keep": {
-        "days": true,
-        "amount": 10
+  "keep": {
+    "days": true,
+    "amount": 10
+  },
+  "auditLog": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/error/.fb05184393634666642102f938c349c84ae61b0e-audit.json",
+  "files": [
+    {
+      "date": 1695302443277,
+      "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/error/phu-2023-21-09-19-error.log",
+      "hash": "aefcea9b62650f1f2150a317ebf41ec3134da25f1a97ce7614381d777c5a91ad"
     },
-    "auditLog": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/error/.fb05184393634666642102f938c349c84ae61b0e-audit.json",
-    "files": [
-        {
-            "date": 1695302443277,
-            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/error/phu-2023-21-09-19-error.log",
-            "hash": "aefcea9b62650f1f2150a317ebf41ec3134da25f1a97ce7614381d777c5a91ad"
-        },
-        {
-            "date": 1695308393495,
-            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/error/phu-2023-21-09-20-error.log",
-            "hash": "aaf2704dba6a7dcca62bd5df65c91600434c6a4c671a865f3cd2bda50b130e29"
-        },
-        {
-            "date": 1695308481761,
-            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/error/phu-2023-21-09-21-error.log",
-            "hash": "509ec0090375742123d2c20b2625c4ce39b081cde8e065f7921d89af71577f04"
-        },
-        {
-            "date": 1695319753965,
-            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/error/phu-2023-22-09-00-error.log",
-            "hash": "29899a5ff6571d5d1d7cc9c29876c136247fad0fb3722772dda6c988cee5be47"
-        }
-    ],
-    "hashType": "sha256"
+    {
+      "date": 1695308393495,
+      "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/error/phu-2023-21-09-20-error.log",
+      "hash": "aaf2704dba6a7dcca62bd5df65c91600434c6a4c671a865f3cd2bda50b130e29"
+    },
+    {
+      "date": 1695308481761,
+      "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/error/phu-2023-21-09-21-error.log",
+      "hash": "509ec0090375742123d2c20b2625c4ce39b081cde8e065f7921d89af71577f04"
+    },
+    {
+      "date": 1695319753965,
+      "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/error/phu-2023-22-09-00-error.log",
+      "hash": "29899a5ff6571d5d1d7cc9c29876c136247fad0fb3722772dda6c988cee5be47"
+    }
+  ],
+  "hashType": "sha256"
 }

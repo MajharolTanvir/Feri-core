@@ -5,17 +5,17 @@ import { SizeValidation } from './size.validation'
 const router = express.Router()
 
 router.patch(
-  '/edit-size/:id',
+  '/:id',
   validateRequest(SizeValidation.updateSizeZodSchema),
   SizeController.editSize,
 )
 
-router.get('/get-sizes', SizeController.getSizes)
+router.get('/', SizeController.getSizes)
 
-router.delete('/delete-size/:id', SizeController.deleteSize)
+router.delete('/:id', SizeController.deleteSize)
 
 router.post(
-  '/add-size',
+  '/',
   validateRequest(SizeValidation.createSizeZodSchema),
   SizeController.addSize,
 )
