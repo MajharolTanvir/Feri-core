@@ -20,8 +20,9 @@ model User {
   role       RoleStatus
   password   String
   token      String?
-  Profile    Profile[]
-  Shop       Shop[]
+
+  Profile Profile[]
+  Shop    Shop[]
 }
 
 model Profile {
@@ -29,7 +30,7 @@ model Profile {
   contactNo      String?
   presentAddress String?
   profileImage   String?
-  user           User   @relation(fields: [userId], references: [id])
+  user           User    @relation(fields: [userId], references: [id])
 
   @@id([userId])
 }
@@ -42,7 +43,7 @@ model Shop {
   division       String?
   district       String?
   area           String?
-  nidNumber      String?  @unique
+  nidNumber      String? @unique
   treadLicenseNo String? @unique
 
   user User @relation(fields: [userId], references: [id])
@@ -52,7 +53,7 @@ model Shop {
 
 model Image {
   id        String   @id @default(uuid())
-  imageUrl  String
+  imageUrl  String[]
   productId String
   product   Product  @relation(fields: [productId], references: [id])
   createdAt DateTime @default(now())
@@ -60,11 +61,11 @@ model Image {
 }
 
 model Tags {
-  id              String           @id @default(uuid())
-  name            String
-  tagsConnections TagsConnection[]
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  id             String           @id @default(uuid())
+  name           String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  TagsConnection TagsConnection[]
 }
 
 model TagsConnection {
@@ -78,12 +79,12 @@ model TagsConnection {
 }
 
 model Category {
-  id            String        @id @default(uuid())
-  name          String
-  imageUrl      String
-  subCategories SubCategory[]
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  id          String        @id @default(uuid())
+  name        String
+  imageUrl    String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  SubCategory SubCategory[]
 }
 
 model SubCategory {
@@ -97,12 +98,12 @@ model SubCategory {
 }
 
 model Color {
-  id               String            @id @default(uuid())
-  name             String
-  colorCode        String
-  colorConnections ColorConnection[]
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
+  id              String            @id @default(uuid())
+  name            String
+  colorCode       String
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  ColorConnection ColorConnection[]
 }
 
 model ColorConnection {
@@ -118,9 +119,9 @@ model ColorConnection {
 model Size {
   id             String           @id @default(uuid())
   sizeNumber     String
-  sizeConnection SizeConnection[]
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
+  SizeConnection SizeConnection[]
 }
 
 model SizeConnection {
@@ -136,15 +137,15 @@ model SizeConnection {
 model Weight {
   id               String             @id @default(uuid())
   name             String
-  WeightConnection WeightConnection[]
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
+  WeightConnection WeightConnection[]
 }
 
 model WeightConnection {
   id        String   @id @default(uuid())
   weightId  String
-  value     String
+  value     Int
   productId String
   weight    Weight   @relation(fields: [weightId], references: [id])
   product   Product  @relation(fields: [productId], references: [id])
@@ -165,7 +166,7 @@ model FreeDelivery {
 
 model PaidDelivery {
   id           String   @id @default(uuid())
-  charge       String
+  charge       Int
   deliveryTime String
   productId    String
   product      Product  @relation(fields: [productId], references: [id])
@@ -174,38 +175,41 @@ model PaidDelivery {
 }
 
 model Product {
-  id               String             @id @default(uuid())
-  title            String
-  description      String
-  brand            String
-  sellerId         String
-  categoryId       String
-  subCategoryId    String
-  quantity         String
-  inStoke          String
-  display          ProductStatus      @default(HIDDEN)
-  mainPrice        Int
-  discountPrice    Int
-  Image            Image[]
-  reviews          Review[]
-  SizeConnection   SizeConnection[]
-  ColorConnection  ColorConnection[]
-  subCategory      SubCategory        @relation(fields: [subCategoryId], references: [id])
-  WeightConnection WeightConnection[]
-  TagsConnection   TagsConnection[]
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  FreeDelivery     FreeDelivery[]
-  PaidDelivery     PaidDelivery[]
+  id                       String             @id @default(uuid())
+  title                    String
+  description              String
+  brand                    String
+  sellerId                 String
+  categoryId               String
+  subCategoryId            String
+  quantity                 Int
+  inStoke                  Int
+  display                  ProductStatus      @default(HIDDEN)
+  mainPrice                Int
+  discountPercentage       Int
+  globalDiscountPercentage Int?
+  couponDiscountTitle      String?
+  couponDiscountPercentage Int?
+  Image                    Image[]
+  reviews                  Review[]
+  subCategory              SubCategory        @relation(fields: [subCategoryId], references: [id])
+  createdAt                DateTime           @default(now())
+  updatedAt                DateTime           @updatedAt
+  TagsConnection           TagsConnection[]
+  ColorConnection          ColorConnection[]
+  SizeConnection           SizeConnection[]
+  WeightConnection         WeightConnection[]
+  FreeDelivery             FreeDelivery[]
+  PaidDelivery             PaidDelivery[]
 }
 
 model Comment {
   id        String   @id @default(uuid())
   sellerId  String
   buyerId   String
-  Review    Review[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Review    Review[]
 }
 
 model Review {

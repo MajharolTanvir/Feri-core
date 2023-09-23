@@ -7,7 +7,7 @@ import httpStatus from 'http-status'
 
 const createProduct = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user
-  const result = await ProductService.createProduct(user.userEmail, req.body)
+  const result = await ProductService.createProduct(user.userId, req.body)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

@@ -1,30 +1,65 @@
 {
-  "keep": {
-    "days": true,
-    "amount": 14
-  },
-  "auditLog": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/.5f03e02df3e5c5257d248048e2d17561bfea63e5-audit.json",
-  "files": [
-    {
-      "date": 1695302443273,
-      "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-21-09-19-success.log",
-      "hash": "7d5eafd2a446f4d8e3274a214aa8648e7a486f1344baf212b008ebe0da88fcbd"
+    "keep": {
+        "days": true,
+        "amount": 14
     },
-    {
-      "date": 1695308393491,
-      "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-21-09-20-success.log",
-      "hash": "85897f0a42c638669d25b180faa6d9b51883b343a151630e670564528ccb9e9b"
-    },
-    {
-      "date": 1695308481755,
-      "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-21-09-21-success.log",
-      "hash": "ab83106cde678696c4d03b2504222a58731c791109e4b64236bdc7739b2e0711"
-    },
-    {
-      "date": 1695319753958,
-      "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-22-09-00-success.log",
-      "hash": "2d199bf65f7679e10cff16887d3de881291897a48de1f5019c36b5b3fdd6d31d"
-    }
-  ],
-  "hashType": "sha256"
+    "auditLog": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/.5f03e02df3e5c5257d248048e2d17561bfea63e5-audit.json",
+    "files": [
+        {
+            "date": 1695302443273,
+            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-21-09-19-success.log",
+            "hash": "7d5eafd2a446f4d8e3274a214aa8648e7a486f1344baf212b008ebe0da88fcbd"
+        },
+        {
+            "date": 1695308393491,
+            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-21-09-20-success.log",
+            "hash": "85897f0a42c638669d25b180faa6d9b51883b343a151630e670564528ccb9e9b"
+        },
+        {
+            "date": 1695308481755,
+            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-21-09-21-success.log",
+            "hash": "ab83106cde678696c4d03b2504222a58731c791109e4b64236bdc7739b2e0711"
+        },
+        {
+            "date": 1695319753958,
+            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-22-09-00-success.log",
+            "hash": "2d199bf65f7679e10cff16887d3de881291897a48de1f5019c36b5b3fdd6d31d"
+        },
+        {
+            "date": 1695378241378,
+            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-22-09-16-success.log",
+            "hash": "c0af11d4968f76fdf89f3cc47ce132a44ce97757212856b463c26d7b0240fe8b"
+        },
+        {
+            "date": 1695386436331,
+            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-22-09-18-success.log",
+            "hash": "3872f79829c22b33e16753a24492462bc1e9e36d879fb30b5c755f332f373beb"
+        },
+        {
+            "date": 1695446851484,
+            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-23-09-11-success.log",
+            "hash": "19635eb4893cb8716e95cd2deb31a9bbaac4bd4348e9e44925b7900fc547064b"
+        },
+        {
+            "date": 1695450251587,
+            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-23-09-12-success.log",
+            "hash": "c6927c080d9fda4885dfbc5041333bfa0b3e7d1deff7189d232763b0c04cdfe5"
+        },
+        {
+            "date": 1695463544059,
+            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-23-09-16-success.log",
+            "hash": "8b55d8626e41646c3aac4ab5785b43b4a05725b594433b838f2c85eb120927a6"
+        },
+        {
+            "date": 1695473061229,
+            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-23-09-18-success.log",
+            "hash": "4c194ea7ce0440a78109ad6db72254a18754becdf029ce1d62fce5d2fb970960"
+        },
+        {
+            "date": 1695474053476,
+            "name": "/home/webshilpo/Working-files/complete-project/feri/feri-core-service/logs/winston/successes/phu-2023-23-09-19-success.log",
+            "hash": "5a02e62141084235f4b9af5045afdf1056ab4d82eee8e22a36ce6bbd2652a5de"
+        }
+    ],
+    "hashType": "sha256"
 }
