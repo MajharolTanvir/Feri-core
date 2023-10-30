@@ -10,7 +10,11 @@ const createAddToCart = async (data: AddToCart) => {
 }
 
 const getAddToCart = async () => {
-  const addToCart = await prisma.addToCart.findMany()
+  const addToCart = await prisma.addToCart.findMany({
+    include: {
+      product: true,
+    },
+  })
 
   return addToCart
 }
