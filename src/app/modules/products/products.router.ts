@@ -11,4 +11,17 @@ router.post(
   ProductController.createProduct,
 )
 
+router.get('/', ProductController.getAllProducts)
+router.get('/:id', ProductController.getSingleProduct)
+router.patch(
+  '/:id',
+  auth(ENUM_USER_ROLE.SELLER),
+  ProductController.updateProduct,
+)
+router.delete(
+  '/:id',
+  auth(ENUM_USER_ROLE.SELLER, ENUM_USER_ROLE.ADMIN),
+  ProductController.deleteProduct,
+)
+
 export const ProductRouter = router

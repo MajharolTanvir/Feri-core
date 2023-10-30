@@ -17,6 +17,61 @@ const createProduct = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
+const getAllProducts = catchAsync(async (req: Request, res: Response) => {
+  const result = await ProductService.getAllProducts()
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Products retrieved successfully',
+    meta: result.meta,
+    data: result.data,
+  })
+})
+
+const getSingleProduct = catchAsync(async (req: Request, res: Response) => {
+  const result = await ProductService.getSingleProduct(req.params.id)
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Product retrieved successfully',
+    data: result,
+  })
+})
+
+const updateProduct = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user
+  const result = await ProductService.updateProduct(
+    req.params.id,
+    user.userId,
+    req.body,
+  )
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Product retrieved successfully',
+    data: result,
+  })
+})
+
+const deleteProduct = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user
+  const result = await ProductService.deleteProduct(req.params.id, user.userId)
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Product deleted successfully',
+    data: result,
+  })
+})
+
 export const ProductController = {
   createProduct,
+  getAllProducts,
+  getSingleProduct,
+  deleteProduct,
+  updateProduct,
 }
