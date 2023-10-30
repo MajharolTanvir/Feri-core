@@ -5,7 +5,7 @@ import httpStatus from 'http-status'
 import { AddToCartServices } from './addToCart.services'
 
 const createAddToCart = catchAsync(async (req: Request, res: Response) => {
-  const result = await AddToCartServices.createAddToCart(req.body.id)
+  const result = await AddToCartServices.createAddToCart(req.body)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

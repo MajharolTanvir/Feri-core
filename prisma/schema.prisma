@@ -253,20 +253,23 @@ model Review {
   buyerId    String
   reviewData String
   rating     Int
-  procuct    Product @relation(fields: [productId], references: [id])
+  product    Product @relation(fields: [productId], references: [id])
   buyer      User    @relation(fields: [buyerId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Comment   Comment[]
 }
 
 model Comment {
   id        String   @id @default(uuid())
+  reviewId  String
   sellerId  String?
   buyerId   String?
   replyData String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  review    Review   @relation(fields: [reviewId], references: [id])
 }
 
 enum ProductStatus {
