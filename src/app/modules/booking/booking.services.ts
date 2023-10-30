@@ -1,10 +1,20 @@
-import { Booking } from '@prisma/client'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import prisma from '../../../shared/prisma'
 
-const createBooking = async (data: Booking) => {
+const createBooking = async (bookingData: any) => {
+  const { productIds, ...data } = bookingData
   const result = await prisma.booking.create({
     data,
   })
+
+  productIds.map((productId: string) =>
+    prisma.productBooking.create({
+      data: {
+        bookingId: result.id,
+        productId: productId,
+      },
+    }),
+  )
 
   return result
 }
