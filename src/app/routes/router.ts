@@ -6,6 +6,9 @@ import { SizesRouter } from '../modules/size/size.router'
 import { WeightRouter } from '../modules/weight/weight.router'
 import { TagsRouter } from '../modules/tags/tags.router'
 import { ProductRouter } from '../modules/products/products.router'
+import { AddToCartRouter } from '../modules/addToCart/addToCart.router'
+import { BookingRouter } from '../modules/booking/booking.router'
+import { ReviewRouter } from '../modules/review/review.router'
 
 const router = express.Router()
 
@@ -37,6 +40,18 @@ const moduleRoutes = [
   {
     path: '/products',
     route: ProductRouter,
+  },
+  {
+    path: '/add-to-cart',
+    route: AddToCartRouter,
+  },
+  {
+    path: '/bookings',
+    route: BookingRouter,
+  },
+  {
+    path: '/reviews',
+    route: ReviewRouter,
   },
 ]
 

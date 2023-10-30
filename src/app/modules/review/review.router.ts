@@ -13,3 +13,5 @@ router.post(
   ReviewController.createComment,
 )
 router.get('/:id', auth(ENUM_USER_ROLE.BUYER), ReviewController.updateReview)
+
+export const ReviewRouter = router
