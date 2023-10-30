@@ -23,6 +23,8 @@ model User {
 
   Profile Profile[]
   Shop    Shop[]
+  Booking Booking[]
+  Review  Review[]
 }
 
 model Profile {
@@ -201,27 +203,70 @@ model Product {
   WeightConnection         WeightConnection[]
   FreeDelivery             FreeDelivery[]
   PaidDelivery             PaidDelivery[]
+  AddToCart                AddToCart[]
+  Booking                  Booking[]
+  ProductBooking           ProductBooking[]
+}
+
+model AddToCart {
+  id        String          @id @default(uuid())
+  productId String
+  quantity  Int
+  price     Int
+  vat       Int
+  status    AddToCartStatus
+
+  product Product @relation(fields: [productId], references: [id])
+}
+
+model ProductBooking {
+  productId String
+  bookingId String
+  product   Product @relation(fields: [productId], references: [id])
+  booking   Booking @relation(fields: [bookingId], references: [id])
+
+  @@id([bookingId])
+}
+
+model Booking {
+  id                 String           @id @default(uuid())
+  buyerId            String
+  productQuantity    Int?
+  productId          String?
+  orderStatus        OrderStatus      @default(Panding)
+  division           String
+  district           String
+  upozila            String
+  area               String
+  contactNo          String
+  emergencyContactNo String
+  subTotal           Int
+  totalPrice         Int
+  Product            Product?         @relation(fields: [productId], references: [id])
+  buyer              User             @relation(fields: [buyerId], references: [id])
+  ProductBooking     ProductBooking[]
+}
+
+model Review {
+  id         String  @id @default(uuid())
+  productId  String
+  buyerId    String
+  reviewData String
+  rating     Int
+  procuct    Product @relation(fields: [productId], references: [id])
+  buyer      User    @relation(fields: [buyerId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Comment {
   id        String   @id @default(uuid())
-  sellerId  String
-  buyerId   String
+  sellerId  String?
+  buyerId   String?
+  replyData String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Review    Review[]
-}
-
-model Review {
-  id         String   @id @default(uuid())
-  reviewId   String
-  productId  String
-  reviewData String
-  rating     Int
-  review     Comment  @relation(fields: [reviewId], references: [id])
-  procuct    Product  @relation(fields: [productId], references: [id])
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
 }
 
 enum ProductStatus {
@@ -234,4 +279,15 @@ enum RoleStatus {
   SELLER
   MODERATOR
   ADMIN
+}
+
+enum OrderStatus {
+  Panding
+  Processing
+  Delivered
+}
+
+enum AddToCartStatus {
+  Panding
+  Selected
 }

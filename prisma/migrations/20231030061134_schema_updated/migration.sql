@@ -4,6 +4,12 @@ CREATE TYPE "ProductStatus" AS ENUM ('SHOW', 'HIDDEN');
 -- CreateEnum
 CREATE TYPE "RoleStatus" AS ENUM ('BUYER', 'SELLER', 'MODERATOR', 'ADMIN');
 
+-- CreateEnum
+CREATE TYPE "OrderStatus" AS ENUM ('Panding', 'Processing', 'Delivered');
+
+-- CreateEnum
+CREATE TYPE "AddToCartStatus" AS ENUM ('Panding', 'Selected');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -212,27 +218,67 @@ CREATE TABLE "Product" (
 );
 
 -- CreateTable
-CREATE TABLE "Comment" (
+CREATE TABLE "AddToCart" (
     "id" TEXT NOT NULL,
-    "sellerId" TEXT NOT NULL,
-    "buyerId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "productId" TEXT NOT NULL,
+    "quantity" INTEGER NOT NULL,
+    "price" INTEGER NOT NULL,
+    "vat" INTEGER NOT NULL,
+    "status" "AddToCartStatus" NOT NULL,
 
-    CONSTRAINT "Comment_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "AddToCart_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ProductBooking" (
+    "productId" TEXT NOT NULL,
+    "bookingId" TEXT NOT NULL,
+
+    CONSTRAINT "ProductBooking_pkey" PRIMARY KEY ("bookingId")
+);
+
+-- CreateTable
+CREATE TABLE "Booking" (
+    "id" TEXT NOT NULL,
+    "buyerId" TEXT NOT NULL,
+    "productQuantity" INTEGER,
+    "productId" TEXT,
+    "orderStatus" "OrderStatus" NOT NULL DEFAULT 'Panding',
+    "division" TEXT NOT NULL,
+    "district" TEXT NOT NULL,
+    "upozila" TEXT NOT NULL,
+    "area" TEXT NOT NULL,
+    "contactNo" TEXT NOT NULL,
+    "emergencyContactNo" TEXT NOT NULL,
+    "subTotal" INTEGER NOT NULL,
+    "totalPrice" INTEGER NOT NULL,
+
+    CONSTRAINT "Booking_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Review" (
     "id" TEXT NOT NULL,
-    "reviewId" TEXT NOT NULL,
     "productId" TEXT NOT NULL,
+    "buyerId" TEXT NOT NULL,
     "reviewData" TEXT NOT NULL,
     "rating" INTEGER NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Review_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Comment" (
+    "id" TEXT NOT NULL,
+    "sellerId" TEXT,
+    "buyerId" TEXT,
+    "replyData" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Comment_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -287,7 +333,22 @@ ALTER TABLE "PaidDelivery" ADD CONSTRAINT "PaidDelivery_productId_fkey" FOREIGN 
 ALTER TABLE "Product" ADD CONSTRAINT "Product_subCategoryId_fkey" FOREIGN KEY ("subCategoryId") REFERENCES "SubCategory"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Review" ADD CONSTRAINT "Review_reviewId_fkey" FOREIGN KEY ("reviewId") REFERENCES "Comment"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "AddToCart" ADD CONSTRAINT "AddToCart_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ProductBooking" ADD CONSTRAINT "ProductBooking_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ProductBooking" ADD CONSTRAINT "ProductBooking_bookingId_fkey" FOREIGN KEY ("bookingId") REFERENCES "Booking"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Booking" ADD CONSTRAINT "Booking_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Booking" ADD CONSTRAINT "Booking_buyerId_fkey" FOREIGN KEY ("buyerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Review" ADD CONSTRAINT "Review_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Review" ADD CONSTRAINT "Review_buyerId_fkey" FOREIGN KEY ("buyerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
