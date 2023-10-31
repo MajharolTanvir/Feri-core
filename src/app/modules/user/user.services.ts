@@ -13,6 +13,8 @@ const createUserEvent = async (e: any) => {
       password: e.password,
       role: e.role,
       token: e.token,
+      validation: e.validation,
+      confirmedCode: e.confirmedCode,
     },
   })
 }

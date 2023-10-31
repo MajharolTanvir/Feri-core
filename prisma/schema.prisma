@@ -11,15 +11,17 @@ datasource db {
 }
 
 model User {
-  id         String     @id @default(uuid())
-  syncId     String
-  firstName  String
-  middleName String?
-  lastName   String
-  email      String
-  role       RoleStatus
-  password   String
-  token      String?
+  id            String     @id @default(uuid())
+  syncId        String
+  firstName     String
+  middleName    String?
+  lastName      String
+  email         String
+  role          RoleStatus
+  password      String
+  token         String?
+  validation    Boolean    @default(false)
+  confirmedCode Int
 
   Profile Profile[]
   Shop    Shop[]

@@ -12,6 +12,6 @@ router.post(
   auth(ENUM_USER_ROLE.BUYER, ENUM_USER_ROLE.SELLER),
   ReviewController.createComment,
 )
-router.get('/:id', auth(ENUM_USER_ROLE.BUYER), ReviewController.updateReview)
+router.patch('/:id', auth(ENUM_USER_ROLE.BUYER), ReviewController.updateReview)
 
 export const ReviewRouter = router
