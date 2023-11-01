@@ -42,8 +42,11 @@ const updateProfile = async (e: Partial<any>) => {
       data: {
         userId: isUserExist!.id,
         contactNo: e.contactNo,
-        presentAddress: e.presentAddress,
         profileImage: e.profileImage,
+        country: e.country,
+        division: e.division,
+        district: e.district,
+        area: e.area,
       },
     })
   } else {
@@ -53,8 +56,11 @@ const updateProfile = async (e: Partial<any>) => {
       },
       data: {
         contactNo: e.contactNo,
-        presentAddress: e.presentAddress,
         profileImage: e.profileImage,
+        country: e.country,
+        division: e.division,
+        district: e.district,
+        area: e.area,
       },
     })
   }
@@ -65,10 +71,10 @@ const updateProfile = async (e: Partial<any>) => {
         userId: isUserExist!.id,
         shopName: e.shopName,
         shopContactNo: e.shopContactNo,
-        country: e.country,
-        division: e.division,
-        district: e.district,
-        area: e.area,
+        shopCountry: e.shopCountry,
+        shopDivision: e.shopDivision,
+        shopDistrict: e.shopDistrict,
+        shopArea: e.shopArea,
         nidNumber: e.nidNumber,
         treadLicenseNo: e.treadLicenseNo,
       },
@@ -81,10 +87,10 @@ const updateProfile = async (e: Partial<any>) => {
       data: {
         shopName: e.shopName,
         shopContactNo: e.shopContactNo,
-        country: e.country,
-        division: e.division,
-        district: e.district,
-        area: e.area,
+        shopCountry: e.shopCountry,
+        shopDivision: e.shopDivision,
+        shopDistrict: e.shopDistrict,
+        shopArea: e.shopArea,
         nidNumber: e.nidNumber,
         treadLicenseNo: e.treadLicenseNo,
       },

@@ -32,8 +32,11 @@ model User {
 model Profile {
   userId         String
   contactNo      String?
-  presentAddress String?
   profileImage   String?
+  country        String?
+  division       String?
+  district       String?
+  area           String?
   user           User    @relation(fields: [userId], references: [id])
 
   @@id([userId])
@@ -43,10 +46,10 @@ model Shop {
   userId         String
   shopName       String?
   shopContactNo  String?
-  country        String?
-  division       String?
-  district       String?
-  area           String?
+  shopCountry    String?
+  shopDivision   String?
+  shopDistrict   String?
+  shopArea       String?
   nidNumber      String? @unique
   treadLicenseNo String? @unique
 
@@ -194,6 +197,7 @@ model Product {
   globalDiscountPercentage Int?
   couponDiscountTitle      String?
   couponDiscountPercentage Int?
+  couponPromoCode          String?
   Image                    Image[]
   reviews                  Review[]
   subCategory              SubCategory        @relation(fields: [subCategoryId], references: [id])
@@ -274,6 +278,36 @@ model Comment {
   review    Review   @relation(fields: [reviewId], references: [id])
 }
 
+model Blog {
+  id          String   @id @default(uuid())
+  userId      String
+  title       String
+  thumbnail   String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model globalDiscount {
+  id         String   @id @default(uuid())
+  thumbnail  String
+  title      String
+  promocode  String
+  percentage Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model promotion {
+  id            String        @id @default(uuid())
+  title         String
+  thumbnail     String
+  productId     String
+  promoteStatus PromoteStatus @default(Off)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
 enum ProductStatus {
   SHOW
   HIDDEN
@@ -295,4 +329,9 @@ enum OrderStatus {
 enum AddToCartStatus {
   Panding
   Selected
+}
+
+enum PromoteStatus {
+  On
+  Off
 }
