@@ -27,20 +27,6 @@ const singleFeedback = async (id: string) => {
   })
 }
 
-const updateFeedback = async (
-  id: string,
-  userId: string,
-  data: Partial<Feedback>,
-) => {
-  return await prisma.feedback.update({
-    where: {
-      id,
-      userId: userId,
-    },
-    data,
-  })
-}
-
 const deleteFeedback = async (id: string, userId: string) => {
   return await prisma.feedback.delete({
     where: {
@@ -54,6 +40,5 @@ export const FeedbackServices = {
   createFeedback,
   allFeedback,
   singleFeedback,
-  updateFeedback,
   deleteFeedback,
 }

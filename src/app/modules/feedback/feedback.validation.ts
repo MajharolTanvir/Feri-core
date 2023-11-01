@@ -11,14 +11,6 @@ const createFeedback = z.object({
   }),
 })
 
-const updateFeedback = z.object({
-  body: z.object({
-    title: z.string().optional(),
-    description: z.string().optional(),
-  }),
-})
-
 export const FeedbackValidation = {
   createFeedback,
-  updateFeedback,
 }

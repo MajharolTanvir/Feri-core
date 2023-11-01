@@ -9,18 +9,24 @@ const router = express.Router()
 
 router.post(
   '/',
-  auth(ENUM_USER_ROLE.SELLER, ENUM_USER_ROLE.MODERATOR, ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.SELLER, ENUM_USER_ROLE.BUYER),
   validateRequest(FeedbackValidation.createFeedback),
   FeedbackController.createFeedback,
 )
-router.get('/', FeedbackController.allFeedback)
-router.get('/:id', FeedbackController.singleFeedback)
-router.patch(
-  '/:id',
-  auth(ENUM_USER_ROLE.SELLER, ENUM_USER_ROLE.MODERATOR, ENUM_USER_ROLE.ADMIN),
-  validateRequest(FeedbackValidation.updateFeedback),
-  FeedbackController.updateFeedback,
+router.get(
+  '/',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.MODERATOR),
+  FeedbackController.allFeedback,
 )
-router.post('/:id', FeedbackController.deleteFeedback)
+router.get(
+  '/:id',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.MODERATOR),
+  FeedbackController.singleFeedback,
+)
+router.post(
+  '/:id',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.MODERATOR),
+  FeedbackController.deleteFeedback,
+)
 
 export const FeedbackRouter = router

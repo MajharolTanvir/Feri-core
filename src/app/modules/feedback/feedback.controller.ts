@@ -39,22 +39,6 @@ const singleFeedback = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
-const updateFeedback = catchAsync(async (req: Request, res: Response) => {
-  const { userId } = req.user as JwtPayload
-  const result = await FeedbackServices.updateFeedback(
-    req.params.id,
-    userId,
-    req.body,
-  )
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Feedback updated successfully!',
-    data: result,
-  })
-})
-
 const deleteFeedback = catchAsync(async (req: Request, res: Response) => {
   const { userId } = req.user as JwtPayload
   const result = await FeedbackServices.deleteFeedback(req.params.id, userId)
@@ -71,6 +55,5 @@ export const FeedbackController = {
   createFeedback,
   allFeedback,
   singleFeedback,
-  updateFeedback,
   deleteFeedback,
 }
