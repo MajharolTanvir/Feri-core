@@ -9,6 +9,11 @@ import { ProductRouter } from '../modules/products/products.router'
 import { AddToCartRouter } from '../modules/addToCart/addToCart.router'
 import { BookingRouter } from '../modules/booking/booking.router'
 import { ReviewRouter } from '../modules/review/review.router'
+import { GlobalDiscountRouter } from '../modules/globalDiscount/globalDiscount.router'
+import { localDiscountRouter } from '../modules/localDiscount/localDiscount.router'
+import { PromotionRouter } from '../modules/promotion/promotion.router'
+import { BlogRouter } from '../modules/blog/blog.router'
+import { FeedbackRouter } from '../modules/feedback/feedback.router'
 
 const router = express.Router()
 
@@ -52,6 +57,26 @@ const moduleRoutes = [
   {
     path: '/reviews',
     route: ReviewRouter,
+  },
+  {
+    path: '/global-discounts',
+    route: GlobalDiscountRouter,
+  },
+  {
+    path: '/local-discounts',
+    route: localDiscountRouter,
+  },
+  {
+    path: '/promotions',
+    route: PromotionRouter,
+  },
+  {
+    path: '/blogs',
+    route: BlogRouter,
+  },
+  {
+    path: '/feedbacks',
+    route: FeedbackRouter,
   },
 ]
 

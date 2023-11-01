@@ -10,6 +10,7 @@ const router = express.Router()
 router.get('/', TagsController.getAllTags)
 router.post(
   '/',
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.MODERATOR, ENUM_USER_ROLE.SELLER),
   validateRequest(TagsValidation.create),
   TagsController.createTags,
 )

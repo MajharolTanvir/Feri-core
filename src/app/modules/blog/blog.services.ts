@@ -9,13 +9,20 @@ const createBlog = async (userId: string, data: Blog) => {
 }
 
 const allBlog = async () => {
-  return await prisma.blog.findMany()
+  return await prisma.blog.findMany({
+    include: {
+      user: true,
+    },
+  })
 }
 
 const singleBlog = async (id: string) => {
   return await prisma.blog.findFirst({
     where: {
       id,
+    },
+    include: {
+      user: true,
     },
   })
 }

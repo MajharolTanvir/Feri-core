@@ -6,7 +6,8 @@ import { Request, Response } from 'express'
 import { JwtPayload } from 'jsonwebtoken'
 
 const createReview = catchAsync(async (req: Request, res: Response) => {
-  const result = await ReviewServices.createReview(req.body)
+  const { userId } = req.user as JwtPayload
+  const result = await ReviewServices.createReview(req.body, userId)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

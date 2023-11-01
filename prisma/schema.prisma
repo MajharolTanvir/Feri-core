@@ -23,11 +23,13 @@ model User {
   validation    Boolean    @default(false)
   confirmedCode Int
 
-  Profile Profile[]
-  Shop    Shop[]
-  Booking Booking[]
-  Review  Review[]
-  Product Product[]
+  Profile  Profile[]
+  Shop     Shop[]
+  Booking  Booking[]
+  Review   Review[]
+  Product  Product[]
+  Blog     Blog[]
+  Feedback Feedback[]
 }
 
 model Profile {
@@ -191,7 +193,7 @@ model Product {
   categoryId           String
   subCategoryId        String
   quantity             Int
-  inStoke              Int
+  stoke                ProductStoke           @default(InStoke)
   display              ProductStatus          @default(HIDDEN)
   mainPrice            Int
   discountPercentage   Int
@@ -322,6 +324,17 @@ model Blog {
   title       String
   thumbnail   String
   description String
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Feedback {
+  id          String   @id @default(uuid())
+  userId      String
+  title       String
+  description String
+  user        User     @relation(fields: [userId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -352,4 +365,9 @@ enum AddToCartStatus {
 enum PromoteStatus {
   On
   Off
+}
+
+enum ProductStoke {
+  InStoke
+  OutOfStoke
 }

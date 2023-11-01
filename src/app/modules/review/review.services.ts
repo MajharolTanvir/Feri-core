@@ -1,7 +1,8 @@
 import { Comment, Review } from '@prisma/client'
 import prisma from '../../../shared/prisma'
 
-const createReview = async (data: Review) => {
+const createReview = async (data: Review, userId: string) => {
+  data.buyerId = userId
   return await prisma.review.create({
     data,
   })
