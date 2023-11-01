@@ -69,6 +69,34 @@ const getAllProducts = async () => {
       total,
     },
     data: result,
+    include: {
+      Image: true,
+      ColorConnection: {
+        include: {
+          color: true,
+        },
+      },
+      SizeConnection: {
+        include: {
+          size: true,
+        },
+      },
+      WeightConnection: {
+        include: {
+          weight: true,
+        },
+      },
+      TagsConnection: {
+        include: {
+          tags: true,
+        },
+      },
+      subCategory: true,
+      FreeDelivery: true,
+      PaidDelivery: true,
+      reviews: true,
+      seller: true,
+    },
   }
 }
 
@@ -76,6 +104,34 @@ const getSingleProduct = async (id: string) => {
   const result = await prisma.product.findFirst({
     where: {
       id,
+    },
+    include: {
+      Image: true,
+      ColorConnection: {
+        include: {
+          color: true,
+        },
+      },
+      SizeConnection: {
+        include: {
+          size: true,
+        },
+      },
+      WeightConnection: {
+        include: {
+          weight: true,
+        },
+      },
+      TagsConnection: {
+        include: {
+          tags: true,
+        },
+      },
+      subCategory: true,
+      FreeDelivery: true,
+      PaidDelivery: true,
+      reviews: true,
+      seller: true,
     },
   })
   return result

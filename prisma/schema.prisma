@@ -27,17 +27,18 @@ model User {
   Shop    Shop[]
   Booking Booking[]
   Review  Review[]
+  Product Product[]
 }
 
 model Profile {
-  userId         String
-  contactNo      String?
-  profileImage   String?
-  country        String?
-  division       String?
-  district       String?
-  area           String?
-  user           User    @relation(fields: [userId], references: [id])
+  userId       String
+  contactNo    String?
+  profileImage String?
+  country      String?
+  division     String?
+  district     String?
+  area         String?
+  user         User    @relation(fields: [userId], references: [id])
 
   @@id([userId])
 }
@@ -201,6 +202,7 @@ model Product {
   Image                    Image[]
   reviews                  Review[]
   subCategory              SubCategory        @relation(fields: [subCategoryId], references: [id])
+  seller                   User               @relation(fields: [sellerId], references: [id])
   createdAt                DateTime           @default(now())
   updatedAt                DateTime           @updatedAt
   TagsConnection           TagsConnection[]
@@ -212,6 +214,7 @@ model Product {
   AddToCart                AddToCart[]
   Booking                  Booking[]
   ProductBooking           ProductBooking[]
+  promotion                promotion[]
 }
 
 model AddToCart {
@@ -278,16 +281,6 @@ model Comment {
   review    Review   @relation(fields: [reviewId], references: [id])
 }
 
-model Blog {
-  id          String   @id @default(uuid())
-  userId      String
-  title       String
-  thumbnail   String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
 model globalDiscount {
   id         String   @id @default(uuid())
   thumbnail  String
@@ -301,11 +294,22 @@ model globalDiscount {
 model promotion {
   id            String        @id @default(uuid())
   title         String
-  thumbnail     String
+  thumbnail     String?
   productId     String
   promoteStatus PromoteStatus @default(Off)
+  product       Product       @relation(fields: [productId], references: [id])
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
+}
+
+model Blog {
+  id          String   @id @default(uuid())
+  userId      String
+  title       String
+  thumbnail   String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 enum ProductStatus {
