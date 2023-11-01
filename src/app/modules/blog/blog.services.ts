@@ -1,7 +1,8 @@
 import { Blog } from '@prisma/client'
 import prisma from '../../../shared/prisma'
 
-const createBlog = async (data: Blog) => {
+const createBlog = async (userId: string, data: Blog) => {
+  data.userId = userId
   return await prisma.blog.create({
     data,
   })
@@ -19,19 +20,21 @@ const singleBlog = async (id: string) => {
   })
 }
 
-const updateBlog = async (id: string, data: Partial<Blog>) => {
+const updateBlog = async (id: string, userId: string, data: Partial<Blog>) => {
   return await prisma.blog.update({
     where: {
       id,
+      userId: userId,
     },
     data,
   })
 }
 
-const deleteBlog = async (id: string) => {
+const deleteBlog = async (id: string, userId: string) => {
   return await prisma.blog.delete({
     where: {
       id,
+      userId: userId,
     },
   })
 }

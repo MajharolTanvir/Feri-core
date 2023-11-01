@@ -3,9 +3,11 @@ import catchAsync from '../../../shared/catchAsync'
 import sendResponse from '../../../shared/sendResponse'
 import httpStatus from 'http-status'
 import { BlogServices } from './blog.services'
+import { JwtPayload } from 'jsonwebtoken'
 
 const createBlog = catchAsync(async (req: Request, res: Response) => {
-  const result = await BlogServices.createBlog(req.body)
+  const { userId } = req.user as JwtPayload
+  const result = await BlogServices.createBlog(userId, req.body)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -38,7 +40,8 @@ const singleBlog = catchAsync(async (req: Request, res: Response) => {
 })
 
 const updateBlog = catchAsync(async (req: Request, res: Response) => {
-  const result = await BlogServices.updateBlog(req.params.id, req.body)
+  const { userId } = req.user as JwtPayload
+  const result = await BlogServices.updateBlog(req.params.id, userId, req.body)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -49,7 +52,8 @@ const updateBlog = catchAsync(async (req: Request, res: Response) => {
 })
 
 const deleteBlog = catchAsync(async (req: Request, res: Response) => {
-  const result = await BlogServices.deleteBlog(req.params.id)
+  const { userId } = req.user as JwtPayload
+  const result = await BlogServices.deleteBlog(req.params.id, userId)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
