@@ -183,38 +183,52 @@ model PaidDelivery {
 }
 
 model Product {
-  id                       String             @id @default(uuid())
-  title                    String
-  description              String
-  brand                    String
-  sellerId                 String
-  categoryId               String
-  subCategoryId            String
-  quantity                 Int
-  inStoke                  Int
-  display                  ProductStatus      @default(HIDDEN)
-  mainPrice                Int
-  discountPercentage       Int
-  globalDiscountPercentage Int?
-  couponDiscountTitle      String?
-  couponDiscountPercentage Int?
-  couponPromoCode          String?
-  Image                    Image[]
-  reviews                  Review[]
-  subCategory              SubCategory        @relation(fields: [subCategoryId], references: [id])
-  seller                   User               @relation(fields: [sellerId], references: [id])
-  createdAt                DateTime           @default(now())
-  updatedAt                DateTime           @updatedAt
-  TagsConnection           TagsConnection[]
-  ColorConnection          ColorConnection[]
-  SizeConnection           SizeConnection[]
-  WeightConnection         WeightConnection[]
-  FreeDelivery             FreeDelivery[]
-  PaidDelivery             PaidDelivery[]
-  AddToCart                AddToCart[]
-  Booking                  Booking[]
-  ProductBooking           ProductBooking[]
-  promotion                promotion[]
+  id                   String                 @id @default(uuid())
+  title                String
+  description          String
+  brand                String
+  sellerId             String
+  categoryId           String
+  subCategoryId        String
+  quantity             Int
+  inStoke              Int
+  display              ProductStatus          @default(HIDDEN)
+  mainPrice            Int
+  discountPercentage   Int
+  Image                Image[]
+  reviews              Review[]
+  subCategory          SubCategory            @relation(fields: [subCategoryId], references: [id])
+  seller               User                   @relation(fields: [sellerId], references: [id])
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  TagsConnection       TagsConnection[]
+  ColorConnection      ColorConnection[]
+  SizeConnection       SizeConnection[]
+  WeightConnection     WeightConnection[]
+  FreeDelivery         FreeDelivery[]
+  PaidDelivery         PaidDelivery[]
+  AddToCart            AddToCart[]
+  Booking              Booking[]
+  ProductBooking       ProductBooking[]
+  promotion            promotion[]
+  PromoCodeWithProduct PromoCodeWithProduct[]
+}
+
+model LocalDiscount {
+  id                   String                 @id @default(uuid())
+  Title                String
+  Percentage           Int
+  PromoCode            String
+  PromoCodeWithProduct PromoCodeWithProduct[]
+}
+
+model PromoCodeWithProduct {
+  localDiscountId String
+  productId       String
+  localDiscount   LocalDiscount @relation(fields: [localDiscountId], references: [id])
+  product         Product       @relation(fields: [productId], references: [id])
+
+  @@id([localDiscountId])
 }
 
 model AddToCart {

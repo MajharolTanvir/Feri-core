@@ -54,6 +54,11 @@ const createProduct = async (userId: string, payload: any) => {
         subCategory: true,
         FreeDelivery: true,
         PaidDelivery: true,
+        PromoCodeWithProduct: {
+          include: {
+            localDiscount: true,
+          },
+        },
       },
     })
   })
@@ -96,6 +101,11 @@ const getAllProducts = async () => {
       PaidDelivery: true,
       reviews: true,
       seller: true,
+      PromoCodeWithProduct: {
+        include: {
+          localDiscount: true,
+        },
+      },
     },
   }
 }
@@ -132,6 +142,11 @@ const getSingleProduct = async (id: string) => {
       PaidDelivery: true,
       reviews: true,
       seller: true,
+      PromoCodeWithProduct: {
+        include: {
+          localDiscount: true,
+        },
+      },
     },
   })
   return result
