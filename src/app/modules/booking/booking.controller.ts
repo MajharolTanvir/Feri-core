@@ -3,9 +3,11 @@ import catchAsync from '../../../shared/catchAsync'
 import sendResponse from '../../../shared/sendResponse'
 import { BookingServices } from './booking.services'
 import httpStatus from 'http-status'
+import { JwtPayload } from 'jsonwebtoken'
 
 const createBooking = catchAsync(async (req: Request, res: Response) => {
-  const result = await BookingServices.createBooking(req.body.id)
+  const { userId } = req.user as JwtPayload
+  const result = await BookingServices.createBooking(req.body.id, userId)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -16,7 +18,8 @@ const createBooking = catchAsync(async (req: Request, res: Response) => {
 })
 
 const getAddToCart = catchAsync(async (req: Request, res: Response) => {
-  const result = await BookingServices.getBooking()
+  const { userId } = req.user as JwtPayload
+  const result = await BookingServices.getBooking(userId)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -27,7 +30,8 @@ const getAddToCart = catchAsync(async (req: Request, res: Response) => {
 })
 
 const deleteAddToCart = catchAsync(async (req: Request, res: Response) => {
-  const result = await BookingServices.deleteBooking(req.params.id)
+  const { userId } = req.user as JwtPayload
+  const result = await BookingServices.deleteBooking(req.params.id, userId)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import prisma from '../../../shared/prisma'
 
-const createBooking = async (bookingData: any) => {
+const createBooking = async (bookingData: any, userId: string) => {
   const { productIds, ...data } = bookingData
+  bookingData.buyerId = userId
   const result = await prisma.booking.create({
     data,
   })
@@ -19,8 +20,11 @@ const createBooking = async (bookingData: any) => {
   return result
 }
 
-const getBooking = async () => {
+const getBooking = async (userId: string) => {
   return await prisma.booking.findMany({
+    where: {
+      buyerId: userId,
+    },
     include: {
       buyer: true,
       Product: true,
@@ -29,10 +33,11 @@ const getBooking = async () => {
   })
 }
 
-const deleteBooking = async (id: string) => {
+const deleteBooking = async (id: string, userId: string) => {
   return await prisma.booking.delete({
     where: {
       id,
+      buyerId: userId,
     },
   })
 }
