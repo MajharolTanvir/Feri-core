@@ -66,7 +66,7 @@ const deleteGlobalDiscount = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
-export const GlobalRequestController = {
+export const GlobalDiscountController = {
   createGlobalDiscount,
   allGlobalDiscount,
   singleGlobalDiscount,

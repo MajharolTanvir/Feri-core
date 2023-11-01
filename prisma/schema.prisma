@@ -23,13 +23,14 @@ model User {
   validation    Boolean    @default(false)
   confirmedCode Int
 
-  Profile  Profile[]
-  Shop     Shop[]
-  Booking  Booking[]
-  Review   Review[]
-  Product  Product[]
-  Blog     Blog[]
-  Feedback Feedback[]
+  Profile       Profile[]
+  Shop          Shop[]
+  Booking       Booking[]
+  Review        Review[]
+  Product       Product[]
+  Blog          Blog[]
+  Feedback      Feedback[]
+  LocalDiscount LocalDiscount[]
 }
 
 model Profile {
@@ -218,10 +219,12 @@ model Product {
 
 model LocalDiscount {
   id                   String                 @id @default(uuid())
-  Title                String
-  Percentage           Int
-  PromoCode            String
-  PromoCodeWithProduct PromoCodeWithProduct[]
+  sellerId               String
+  title                String
+  percentage           Int
+  promoCode            String
+  promoCodeWithProduct PromoCodeWithProduct[]
+  user                 User                   @relation(fields: [sellerId], references: [id])
 }
 
 model PromoCodeWithProduct {

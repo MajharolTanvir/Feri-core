@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import prisma from '../../../shared/prisma'
 
-const createLocalDiscount = async (discountData: any) => {
+const createLocalDiscount = async (discountData: any, userId: string) => {
   const { products, ...data } = discountData
+  data.sellerId = userId
   const result = await prisma.localDiscount.create({
     data,
     include: {
-      PromoCodeWithProduct: {
+      promoCodeWithProduct: {
         include: {
           product: true,
         },
@@ -30,7 +31,7 @@ const createLocalDiscount = async (discountData: any) => {
 const allLocalDiscount = async () => {
   return await prisma.localDiscount.findMany({
     include: {
-      PromoCodeWithProduct: {
+      promoCodeWithProduct: {
         include: {
           product: true,
         },
@@ -45,7 +46,7 @@ const singleLocalDiscount = async (id: string) => {
       id,
     },
     include: {
-      PromoCodeWithProduct: {
+      promoCodeWithProduct: {
         include: {
           product: true,
         },
@@ -54,9 +55,9 @@ const singleLocalDiscount = async (id: string) => {
   })
 }
 
-const deleteLocalDiscount = async (id: string) => {
+const deleteLocalDiscount = async (id: string, userId: string) => {
   const isDiscount = await prisma.localDiscount.findFirst({
-    where: { id },
+    where: { id, sellerId: userId },
   })
 
   await prisma.promoCodeWithProduct.deleteMany({

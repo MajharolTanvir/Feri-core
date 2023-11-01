@@ -3,9 +3,14 @@ import catchAsync from '../../../shared/catchAsync'
 import { LocalDiscountServices } from './localDiscount.services'
 import sendResponse from '../../../shared/sendResponse'
 import httpStatus from 'http-status'
+import { JwtPayload } from 'jsonwebtoken'
 
 const createLocalDiscount = catchAsync(async (req: Request, res: Response) => {
-  const result = await LocalDiscountServices.createLocalDiscount(req.body)
+  const { userId } = req.user as JwtPayload
+  const result = await LocalDiscountServices.createLocalDiscount(
+    req.body,
+    userId,
+  )
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -38,7 +43,11 @@ const singleLocalDiscount = catchAsync(async (req: Request, res: Response) => {
 })
 
 const deleteLocalDiscount = catchAsync(async (req: Request, res: Response) => {
-  const result = await LocalDiscountServices.deleteLocalDiscount(req.params.id)
+  const { userId } = req.user as JwtPayload
+  const result = await LocalDiscountServices.deleteLocalDiscount(
+    req.params.id,
+    userId,
+  )
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
