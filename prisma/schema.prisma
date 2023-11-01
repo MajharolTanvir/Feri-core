@@ -210,8 +210,8 @@ model Product {
   AddToCart            AddToCart[]
   Booking              Booking[]
   ProductBooking       ProductBooking[]
-  promotion            promotion[]
   PromoCodeWithProduct PromoCodeWithProduct[]
+  Promotion            Promotion[]
 }
 
 model LocalDiscount {
@@ -305,7 +305,7 @@ model globalDiscount {
   updatedAt  DateTime @updatedAt
 }
 
-model promotion {
+model Promotion {
   id            String        @id @default(uuid())
   title         String
   thumbnail     String?
