@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { SetOptions, createClient } from 'redis'
 import config from '../config'
 

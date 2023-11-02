@@ -18,10 +18,7 @@ model User {
   lastName      String
   email         String
   role          RoleStatus
-  password      String
-  token         String?
-  validation    Boolean    @default(false)
-  confirmedCode Int
+  validation    Boolean
 
   Profile       Profile[]
   Shop          Shop[]

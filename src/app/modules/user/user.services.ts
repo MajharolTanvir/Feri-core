@@ -10,11 +10,8 @@ const createUserEvent = async (e: any) => {
       middleName: e.middleName,
       lastName: e.lastName,
       email: e.email,
-      password: e.password,
       role: e.role,
-      token: e.token,
       validation: e.validation,
-      confirmedCode: e.confirmedCode,
     },
   })
 }
