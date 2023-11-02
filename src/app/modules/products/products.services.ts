@@ -59,13 +59,7 @@ const createProduct = async (userId: string, payload: any) => {
 }
 
 const getAllProducts = async () => {
-  const result = await prisma.product.findMany({})
-  const total = await prisma.product.count()
-  return {
-    meta: {
-      total,
-    },
-    data: result,
+  const result = await prisma.product.findMany({
     include: {
       Image: true,
       ColorConnection: {
@@ -99,6 +93,13 @@ const getAllProducts = async () => {
         },
       },
     },
+  })
+  const total = await prisma.product.count()
+  return {
+    meta: {
+      total,
+    },
+    data: result,
   }
 }
 
