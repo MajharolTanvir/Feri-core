@@ -1,51 +1,50 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-expressions */
 /* eslint-disable no-console */
-import { ErrorRequestHandler } from 'express'
-import ApiError from '../../errors/ApiError'
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { ErrorRequestHandler, NextFunction, Request, Response } from 'express'
 import config from '../../config'
-import { errorLogger } from '../../shared/logger'
-import { GenericErrorMessageType } from '../../common/error.interface'
+import ApiError from '../../errors/ApiError'
 import handleValidationError from '../../errors/handleValidationError'
-import handleCastError from '../../errors/handleCastError'
 import { ZodError } from 'zod'
 import handleZodError from '../../errors/handleZodError'
-import handleDuplicateError from '../../errors/handleDuplicateError'
+import { IGenericErrorMessage } from '../../interfaces/error'
+import { Prisma } from '@prisma/client'
+import handleUnknownRequestError from '../../errors/handleUnknownRequestError'
+import { errorLogger } from '../../shared/logger'
 
-const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
+const globalErrorHandler: ErrorRequestHandler = (
+  error,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   config.env === 'development'
-    ? console.log('globalErrorHandler 🤖', error)
-    : errorLogger.error('globalErrorHandler 🤖', error)
+    ? console.log(`🐱‍🏍 globalErrorHandler ~~`, { error })
+    : errorLogger.error(`🐱‍🏍 globalErrorHandler ~~`, error)
 
   let statusCode = 500
-  let message = 'Something went wrong'
-  let errorMessages: GenericErrorMessageType[] = []
+  let message = 'Something went wrong !'
+  let errorMessages: IGenericErrorMessage[] = []
 
-  if (error?.name === 'ValidationError') {
+  if (error instanceof Prisma.PrismaClientValidationError) {
     const simplifiedError = handleValidationError(error)
-    statusCode = simplifiedError.statusCode
-    message = simplifiedError.message
-    errorMessages = simplifiedError.errorMessages
-  } else if (error.name === 'MongoServerError' && error.code === 11000) {
-    const simplifiedError = handleDuplicateError(error)
-
     statusCode = simplifiedError.statusCode
     message = simplifiedError.message
     errorMessages = simplifiedError.errorMessages
   } else if (error instanceof ZodError) {
     const simplifiedError = handleZodError(error)
-    statusCode = simplifiedError?.statusCode
-    message = simplifiedError?.message
-    errorMessages = simplifiedError?.errorMessage
-  } else if (error.name === 'CastError') {
-    const simplifiedError = handleCastError(error)
-    statusCode = simplifiedError?.statusCode
-    message = simplifiedError?.message
-    errorMessages = simplifiedError?.errorMessage
+    statusCode = simplifiedError.statusCode
+    message = simplifiedError.message
+    errorMessages = simplifiedError.errorMessage
+  } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    const simplifiedError = handleUnknownRequestError(error)
+    statusCode = simplifiedError.statusCode
+    message = simplifiedError.message
+    errorMessages = simplifiedError.errorMessages
   } else if (error instanceof ApiError) {
     statusCode = error?.statusCode
-    message = error?.message
+    message = error.message
     errorMessages = error?.message
       ? [
           {

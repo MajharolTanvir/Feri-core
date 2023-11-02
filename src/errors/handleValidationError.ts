@@ -1,24 +1,19 @@
-import mongoose from 'mongoose'
-import {
-  GenericErrorMessageType,
-  GenericErrorResponseType,
-} from '../common/error.interface'
+import { Prisma } from '@prisma/client'
+import { IGenericErrorResponse } from '../interfaces/common'
 
 const handleValidationError = (
-  err: mongoose.Error.ValidationError,
-): GenericErrorResponseType => {
-  const errors: GenericErrorMessageType[] = Object.values(err?.errors).map(
-    (ele: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
-      return {
-        path: ele?.path,
-        message: ele?.message,
-      }
+  error: Prisma.PrismaClientValidationError,
+): IGenericErrorResponse => {
+  const errors = [
+    {
+      path: '',
+      message: error.message,
     },
-  )
+  ]
   const statusCode = 400
   return {
     statusCode,
-    message: 'Validation failed',
+    message: 'Validation Error',
     errorMessages: errors,
   }
 }
