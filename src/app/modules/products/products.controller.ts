@@ -4,6 +4,9 @@ import catchAsync from '../../../shared/catchAsync'
 import { ProductService } from './products.services'
 import sendResponse from '../../../shared/sendResponse'
 import httpStatus from 'http-status'
+import pick from '../../../shared/pick'
+import { paginationFields } from '../../../constants/pagination'
+import { productSearchableFields } from './products.constant'
 
 const createProduct = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user
@@ -18,7 +21,9 @@ const createProduct = catchAsync(async (req: Request, res: Response) => {
 })
 
 const getAllProducts = catchAsync(async (req: Request, res: Response) => {
-  const result = await ProductService.getAllProducts()
+  const filters = pick(req.query, productSearchableFields)
+  const options = pick(req.query, paginationFields)
+  const result = await ProductService.getAllProducts(filters, options)
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

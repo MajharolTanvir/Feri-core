@@ -10,10 +10,15 @@ CREATE TYPE "OrderStatus" AS ENUM ('Panding', 'Processing', 'Delivered');
 -- CreateEnum
 CREATE TYPE "AddToCartStatus" AS ENUM ('Panding', 'Selected');
 
+-- CreateEnum
+CREATE TYPE "PromoteStatus" AS ENUM ('On', 'Off');
+
+-- CreateEnum
+CREATE TYPE "ProductStoke" AS ENUM ('InStoke', 'OutOfStoke');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
-    "syncId" TEXT NOT NULL,
     "firstName" TEXT NOT NULL,
     "middleName" TEXT,
     "lastName" TEXT NOT NULL,
@@ -21,6 +26,8 @@ CREATE TABLE "User" (
     "role" "RoleStatus" NOT NULL,
     "password" TEXT NOT NULL,
     "token" TEXT,
+    "validation" BOOLEAN NOT NULL DEFAULT false,
+    "confirmedCode" INTEGER,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -29,8 +36,13 @@ CREATE TABLE "User" (
 CREATE TABLE "Profile" (
     "userId" TEXT NOT NULL,
     "contactNo" TEXT,
-    "presentAddress" TEXT,
     "profileImage" TEXT,
+    "country" TEXT,
+    "division" TEXT,
+    "district" TEXT,
+    "area" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Profile_pkey" PRIMARY KEY ("userId")
 );
@@ -40,10 +52,10 @@ CREATE TABLE "Shop" (
     "userId" TEXT NOT NULL,
     "shopName" TEXT,
     "shopContactNo" TEXT,
-    "country" TEXT,
-    "division" TEXT,
-    "district" TEXT,
-    "area" TEXT,
+    "shopCountry" TEXT,
+    "shopDivision" TEXT,
+    "shopDistrict" TEXT,
+    "shopArea" TEXT,
     "nidNumber" TEXT,
     "treadLicenseNo" TEXT,
 
@@ -204,17 +216,37 @@ CREATE TABLE "Product" (
     "categoryId" TEXT NOT NULL,
     "subCategoryId" TEXT NOT NULL,
     "quantity" INTEGER NOT NULL,
-    "inStoke" INTEGER NOT NULL,
+    "stoke" "ProductStoke" NOT NULL DEFAULT 'InStoke',
     "display" "ProductStatus" NOT NULL DEFAULT 'HIDDEN',
     "mainPrice" INTEGER NOT NULL,
     "discountPercentage" INTEGER NOT NULL,
-    "globalDiscountPercentage" INTEGER,
-    "couponDiscountTitle" TEXT,
-    "couponDiscountPercentage" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Product_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "LocalDiscount" (
+    "id" TEXT NOT NULL,
+    "sellerId" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "percentage" INTEGER NOT NULL,
+    "promoCode" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "LocalDiscount_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "PromoCodeWithProduct" (
+    "localDiscountId" TEXT NOT NULL,
+    "productId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "PromoCodeWithProduct_pkey" PRIMARY KEY ("localDiscountId")
 );
 
 -- CreateTable
@@ -225,6 +257,8 @@ CREATE TABLE "AddToCart" (
     "price" INTEGER NOT NULL,
     "vat" INTEGER NOT NULL,
     "status" "AddToCartStatus" NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "AddToCart_pkey" PRIMARY KEY ("id")
 );
@@ -233,6 +267,8 @@ CREATE TABLE "AddToCart" (
 CREATE TABLE "ProductBooking" (
     "productId" TEXT NOT NULL,
     "bookingId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "ProductBooking_pkey" PRIMARY KEY ("bookingId")
 );
@@ -252,6 +288,8 @@ CREATE TABLE "Booking" (
     "emergencyContactNo" TEXT NOT NULL,
     "subTotal" INTEGER NOT NULL,
     "totalPrice" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Booking_pkey" PRIMARY KEY ("id")
 );
@@ -272,6 +310,7 @@ CREATE TABLE "Review" (
 -- CreateTable
 CREATE TABLE "Comment" (
     "id" TEXT NOT NULL,
+    "reviewId" TEXT NOT NULL,
     "sellerId" TEXT,
     "buyerId" TEXT,
     "replyData" TEXT NOT NULL,
@@ -280,6 +319,60 @@ CREATE TABLE "Comment" (
 
     CONSTRAINT "Comment_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateTable
+CREATE TABLE "globalDiscount" (
+    "id" TEXT NOT NULL,
+    "thumbnail" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "promocode" TEXT NOT NULL,
+    "percentage" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "globalDiscount_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Promotion" (
+    "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "thumbnail" TEXT,
+    "productId" TEXT NOT NULL,
+    "promoteStatus" "PromoteStatus" NOT NULL DEFAULT 'Off',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Promotion_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Blog" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "thumbnail" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Blog_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Feedback" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Feedback_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Shop_nidNumber_key" ON "Shop"("nidNumber");
@@ -333,6 +426,18 @@ ALTER TABLE "PaidDelivery" ADD CONSTRAINT "PaidDelivery_productId_fkey" FOREIGN 
 ALTER TABLE "Product" ADD CONSTRAINT "Product_subCategoryId_fkey" FOREIGN KEY ("subCategoryId") REFERENCES "SubCategory"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "Product" ADD CONSTRAINT "Product_sellerId_fkey" FOREIGN KEY ("sellerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "LocalDiscount" ADD CONSTRAINT "LocalDiscount_sellerId_fkey" FOREIGN KEY ("sellerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PromoCodeWithProduct" ADD CONSTRAINT "PromoCodeWithProduct_localDiscountId_fkey" FOREIGN KEY ("localDiscountId") REFERENCES "LocalDiscount"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PromoCodeWithProduct" ADD CONSTRAINT "PromoCodeWithProduct_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "AddToCart" ADD CONSTRAINT "AddToCart_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -352,3 +457,15 @@ ALTER TABLE "Review" ADD CONSTRAINT "Review_productId_fkey" FOREIGN KEY ("produc
 
 -- AddForeignKey
 ALTER TABLE "Review" ADD CONSTRAINT "Review_buyerId_fkey" FOREIGN KEY ("buyerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Comment" ADD CONSTRAINT "Comment_reviewId_fkey" FOREIGN KEY ("reviewId") REFERENCES "Review"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Promotion" ADD CONSTRAINT "Promotion_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Blog" ADD CONSTRAINT "Blog_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Feedback" ADD CONSTRAINT "Feedback_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

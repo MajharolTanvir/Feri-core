@@ -12,13 +12,15 @@ datasource db {
 
 model User {
   id            String     @id @default(uuid())
-  syncId        String
   firstName     String
   middleName    String?
   lastName      String
-  email         String
+  email         String     @unique
   role          RoleStatus
-  validation    Boolean
+  password      String
+  token         String?
+  validation    Boolean    @default(false)
+  confirmedCode Int?
 
   Profile       Profile[]
   Shop          Shop[]
@@ -38,7 +40,9 @@ model Profile {
   division     String?
   district     String?
   area         String?
-  user         User    @relation(fields: [userId], references: [id])
+  user         User     @relation(fields: [userId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   @@id([userId])
 }
@@ -93,6 +97,7 @@ model Category {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   SubCategory SubCategory[]
+  Product     Product[]
 }
 
 model SubCategory {
@@ -197,6 +202,7 @@ model Product {
   discountPercentage   Int
   Image                Image[]
   reviews              Review[]
+  category             Category               @relation(fields: [categoryId], references: [id])
   subCategory          SubCategory            @relation(fields: [subCategoryId], references: [id])
   seller               User                   @relation(fields: [sellerId], references: [id])
   createdAt            DateTime               @default(now())
@@ -216,10 +222,12 @@ model Product {
 
 model LocalDiscount {
   id                   String                 @id @default(uuid())
-  sellerId               String
+  sellerId             String
   title                String
   percentage           Int
   promoCode            String
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
   promoCodeWithProduct PromoCodeWithProduct[]
   user                 User                   @relation(fields: [sellerId], references: [id])
 }
@@ -229,6 +237,8 @@ model PromoCodeWithProduct {
   productId       String
   localDiscount   LocalDiscount @relation(fields: [localDiscountId], references: [id])
   product         Product       @relation(fields: [productId], references: [id])
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 
   @@id([localDiscountId])
 }
@@ -241,14 +251,18 @@ model AddToCart {
   vat       Int
   status    AddToCartStatus
 
-  product Product @relation(fields: [productId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model ProductBooking {
   productId String
   bookingId String
-  product   Product @relation(fields: [productId], references: [id])
-  booking   Booking @relation(fields: [bookingId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  booking   Booking  @relation(fields: [bookingId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@id([bookingId])
 }
@@ -269,6 +283,8 @@ model Booking {
   totalPrice         Int
   Product            Product?         @relation(fields: [productId], references: [id])
   buyer              User             @relation(fields: [buyerId], references: [id])
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
   ProductBooking     ProductBooking[]
 }
 

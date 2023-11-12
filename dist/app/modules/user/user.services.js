@@ -23,11 +23,8 @@ const createUserEvent = (e) => __awaiter(void 0, void 0, void 0, function* () {
             middleName: e.middleName,
             lastName: e.lastName,
             email: e.email,
-            password: e.password,
             role: e.role,
-            token: e.token,
             validation: e.validation,
-            confirmedCode: e.confirmedCode,
         },
     });
 });
