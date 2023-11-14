@@ -34,7 +34,8 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Profile" (
-    "userId" TEXT NOT NULL,
+    "id" TEXT NOT NULL,
+    "syncId" TEXT NOT NULL,
     "contactNo" TEXT,
     "profileImage" TEXT,
     "country" TEXT,
@@ -44,12 +45,13 @@ CREATE TABLE "Profile" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Profile_pkey" PRIMARY KEY ("userId")
+    CONSTRAINT "Profile_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Shop" (
-    "userId" TEXT NOT NULL,
+    "id" TEXT NOT NULL,
+    "syncId" TEXT NOT NULL,
     "shopName" TEXT,
     "shopContactNo" TEXT,
     "shopCountry" TEXT,
@@ -59,7 +61,7 @@ CREATE TABLE "Shop" (
     "nidNumber" TEXT,
     "treadLicenseNo" TEXT,
 
-    CONSTRAINT "Shop_pkey" PRIMARY KEY ("userId")
+    CONSTRAINT "Shop_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -381,10 +383,10 @@ CREATE UNIQUE INDEX "Shop_nidNumber_key" ON "Shop"("nidNumber");
 CREATE UNIQUE INDEX "Shop_treadLicenseNo_key" ON "Shop"("treadLicenseNo");
 
 -- AddForeignKey
-ALTER TABLE "Profile" ADD CONSTRAINT "Profile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Profile" ADD CONSTRAINT "Profile_syncId_fkey" FOREIGN KEY ("syncId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Shop" ADD CONSTRAINT "Shop_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Shop" ADD CONSTRAINT "Shop_syncId_fkey" FOREIGN KEY ("syncId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Image" ADD CONSTRAINT "Image_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -421,6 +423,9 @@ ALTER TABLE "FreeDelivery" ADD CONSTRAINT "FreeDelivery_productId_fkey" FOREIGN 
 
 -- AddForeignKey
 ALTER TABLE "PaidDelivery" ADD CONSTRAINT "PaidDelivery_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Product" ADD CONSTRAINT "Product_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Product" ADD CONSTRAINT "Product_subCategoryId_fkey" FOREIGN KEY ("subCategoryId") REFERENCES "SubCategory"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

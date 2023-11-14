@@ -14,10 +14,20 @@ import { localDiscountRouter } from '../modules/localDiscount/localDiscount.rout
 import { PromotionRouter } from '../modules/promotion/promotion.router'
 import { BlogRouter } from '../modules/blog/blog.router'
 import { FeedbackRouter } from '../modules/feedback/feedback.router'
+import { UsersRouter } from '../modules/users/users.router'
+import { ProfileRouter } from '../modules/profile/profile.router'
 
 const router = express.Router()
 
 const moduleRoutes = [
+  {
+    path: '/users',
+    route: UsersRouter,
+  },
+  {
+    path: '/profile',
+    route: ProfileRouter,
+  },
   {
     path: '/categories',
     route: CategoryRoutes,

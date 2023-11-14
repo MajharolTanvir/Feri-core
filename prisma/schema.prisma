@@ -23,7 +23,6 @@ model User {
   confirmedCode Int?
 
   Profile       Profile[]
-  Shop          Shop[]
   Booking       Booking[]
   Review        Review[]
   Product       Product[]
@@ -33,32 +32,24 @@ model User {
 }
 
 model Profile {
-  userId       String
-  contactNo    String?
-  profileImage String?
-  country      String?
-  division     String?
-  district     String?
-  area         String?
-  user         User     @relation(fields: [userId], references: [id])
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  @@id([userId])
-}
-
-model Shop {
   userId         String
+  contactNo      String?
+  profileImage   String?
+  country        String?
+  division       String?
+  district       String?
+  area           String?
   shopName       String?
   shopContactNo  String?
   shopCountry    String?
   shopDivision   String?
   shopDistrict   String?
   shopArea       String?
-  nidNumber      String? @unique
-  treadLicenseNo String? @unique
-
-  user User @relation(fields: [userId], references: [id])
+  nidNumber      String?  @unique
+  treadLicenseNo String?  @unique
+  user           User     @relation(fields: [userId], references: [id])
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   @@id([userId])
 }

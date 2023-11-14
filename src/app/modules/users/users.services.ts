@@ -123,18 +123,19 @@ const signup = async (userData: User) => {
   return accessToken
 }
 
-const confirmedSignup = async (data: Partial<User>, userEmail: string) => {
+const confirmedSignup = async (data: any, userEmail: string) => {
   const existUser = await prisma.user.findFirst({
     where: {
       email: userEmail,
     },
   })
 
+  console.log(existUser)
   if (!existUser) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email not found!')
   }
 
-  if (existUser.confirmedCode === data.confirmedCode) {
+  if (existUser.confirmedCode === parseInt(data.confirmedCode)) {
     await prisma.user.update({
       where: {
         email: userEmail,
@@ -151,6 +152,8 @@ const confirmedSignup = async (data: Partial<User>, userEmail: string) => {
       userId: existUser?.id,
     },
   })
+
+  return { message: 'User has been verified!' }
 }
 
 const signIn = async (loginData: User) => {

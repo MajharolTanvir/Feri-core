@@ -7,8 +7,6 @@ import validateRequest from '../../middleware/validateRequest'
 
 const router = express.Router()
 
-router.patch('/:id', auth(ENUM_USER_ROLE.ADMIN), ProfileController.changeRole)
-
 router.patch(
   '/',
   auth(
@@ -57,7 +55,7 @@ router.get(
 router.patch(
   '/change-role/:id',
   auth(ENUM_USER_ROLE.ADMIN),
-  ProfileController.profileUpdate,
+  ProfileController.changeRole,
 )
 
 export const ProfileRouter = router
